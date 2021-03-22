@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "531743112205",
+    "project_id": "javachatapp-1f8ed",
+    "storage_bucket": "javachatapp-1f8ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531743112205:android:89c478efab1b77d86f6944",
+        "android_client_info": {
+          "package_name": "com.example.javachatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531743112205-ubsotrmemr6tcqe2edhc4rlgus5oea8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz8eZTAwcs-7P8LxH0CwPGSwcye5ePKfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531743112205-ubsotrmemr6tcqe2edhc4rlgus5oea8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
