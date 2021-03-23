@@ -1,8 +1,13 @@
 package com.example.javachatapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +16,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.javachatapp.Fragments.ChatsFragment;
+import com.example.javachatapp.Fragments.UsersFragment;
 import com.example.javachatapp.Model.User;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,6 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        ViewPager viewPager = findViewById(R.id.view_pager);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+        viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -81,5 +102,37 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    public static class ViewPagerAdapter extends FragmentPagerAdapter {
+        private ArrayList<Fragment> fragments;
+        private ArrayList<String> titles;
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            this.fragments = new ArrayList<>();
+            this.titles = new ArrayList<>();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragments.add(fragment);
+            titles.add(title);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles.get(position);
+        }
     }
 }
