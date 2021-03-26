@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,7 +26,6 @@ import com.example.javachatapp.Notifications.Data;
 import com.example.javachatapp.Notifications.MyResponse;
 import com.example.javachatapp.Notifications.Sender;
 import com.example.javachatapp.Notifications.Token;
-import com.google.android.gms.common.api.Response;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +39,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.security.auth.callback.Callback;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -240,7 +241,7 @@ public class MessageActivity extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onFailure(Call<MyResponse> call, Throwable t)
+                                public void onFailure(Call<MyResponse> call, Throwable t){}
                             });
                 }
             }
@@ -279,6 +280,12 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private void currentUser(String userid) {
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentuser", userid);
+        editor.apply();
+    }
+
     private void status(String status) {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
 
@@ -292,6 +299,7 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         status("online");
+        currentUser(userid);
     }
 
     @Override
@@ -299,5 +307,6 @@ public class MessageActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(seenListener);
         status("offline");
+        currentUser("none");
     }
 }
